@@ -6,11 +6,11 @@ world = {
         "choice": ["Forest", "Tavern"]
     },
     "Tavern":{
-        "description": " Description here for the Tavern ",
+        "description": "Description here for the Tavern ",
         "choice": ["Room", "Road"]
     },
     "Forest":{
-        "description": " Description here for the Forest ",
+        "description": "Description here for the Forest ",
         "choice": ["Cave", "South", "Road"]
     },
        
@@ -19,7 +19,9 @@ world = {
 def display_room(player_choice):
 
     player_choice = world[player_choice]
-    print (player_choice)
+    print (player_choice["description"])
+    print (player_choice["choices"])
+
     
 current_room = "Road"
 alive = True
@@ -34,11 +36,10 @@ while alive is True:
         display_room(current_room)
 
     else: 
-        player_choice not in world
         print ("Cannot go there!")
         counter += 1
         if counter >= 3:
-            print ("You wander aimessly towards the world, your luck eventually ran out, something got you, and no one ever heard from you again")
+            print ("You wander aimlessly towards the world, your luck eventually ran out, something got you, and no one ever heard from you again")
             print ("YOU DIED")
             alive = False
        
