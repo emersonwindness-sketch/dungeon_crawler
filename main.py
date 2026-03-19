@@ -1,8 +1,11 @@
 print ("Welcome to the depricated, dark and dead world after the awakening")
+print ("------------------------------------------------------------------")
+print ("Walking for days, hiding in the shadows, avoiding anything and everyone, after all, you don't really know who is what they claim to be, well, not after the falling")
+print ("you've been walking for too long, the only options would be the Tavern to the east of here, or the forest to the north.")
 
 world = {
     "Road":{
-        "description": "A comfortable place to stay in the night, you walked days to get here, hiding in the shadows, avoiding anything and everyone, after all, you don't really know who is what they claim to be, well, not after the falling.",
+        "description": "The road, you've been walking for too long, the only options would be the Tavern to the east of here, or the forest to the north.",
         "choice": ["Forest", "Tavern"]
     },
     "Tavern":{
@@ -11,7 +14,7 @@ world = {
     },
     "Forest":{
         "description": "Description here for the Forest ",
-        "choice": ["Cave", "South", "Road"]
+        "choice": ["Cave", "North", "Road"]
     },
        
 }
@@ -20,7 +23,8 @@ def display_room(player_choice):
 
     player_choice = world[player_choice]
     print (player_choice["description"])
-    print (player_choice["choices"])
+    choices = ", " .join(player_choice["choice"])
+    print (f"exits: {choices}")
 
     
 current_room = "Road"
@@ -39,8 +43,7 @@ while alive is True:
         print ("Cannot go there!")
         counter += 1
         if counter >= 3:
-            print ("You wander aimlessly towards the world, your luck eventually ran out, something got you, and no one ever heard from you again")
-            print ("YOU DIED")
+            print ("You wander aimlessly towards the world, your luck eventually ran out, something got you, and no one ever heard from you again\nYou DIED")
             alive = False
        
 
