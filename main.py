@@ -16,10 +16,10 @@ world = {
        
 }
 
-def display_room(room):
+def display_room(player_choice):
 
-    room_data = world[room]
-    print (room_data)
+    player_choice = world[player_choice]
+    print (player_choice)
     
 current_room = "Road"
 alive = True
