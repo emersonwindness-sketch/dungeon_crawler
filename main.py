@@ -21,14 +21,27 @@ def display_room(room):
     room_data = world[room]
     print (room_data)
     
-current_room = "Road"    
-while True:
+current_room = "Road"
+alive = True
+counter = 0
 
-    player_choice = input(f"what would you like to do?").capitalize()
+while alive is True:
+    
+    player_choice = input(f"what would you like to do? ").capitalize()
     print (f"you choose to: {player_choice}")
     if player_choice in world:
         current_room = player_choice
         display_room(current_room)
-    else:
+
+    else: 
+        player_choice not in world
         print ("Cannot go there!")
+        counter += 1
+        if counter >= 3:
+            print ("You wander aimessly towards the world, your luck eventually ran out, something got you, and no one ever heard from you again")
+            print ("YOU DIED")
+            alive = False
+       
+
+
     
