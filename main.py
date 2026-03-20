@@ -4,16 +4,17 @@ print ("Walking for days, hiding in the shadows, avoiding anything and everyone,
 print ("you've been walking for too long, the only options would be the Tavern to the east of here, or the forest to the north.")
 
 world = {
+
     "Road":{
         "description": "The road, you've been walking for too long, the only options would be the Tavern to the east of here, or the forest to the north.",
         "choice": ["Forest", "Tavern"]
     },
     "Tavern":{
-        "description": "Description here for the Tavern ",
+        "description": "A confortable place to stay the night, that is, if you have the money to pay?",
         "choice": ["Room", "Road"]
     },
     "Forest":{
-        "description": "Description here for the Forest ",
+        "description": "You keep walking towards the forest, however, it is eerie quiet... something isnt right.",
         "choice": ["Cave", "North", "Road"]
     },
        
