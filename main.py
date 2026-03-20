@@ -27,7 +27,7 @@ world = {
 }
 
 Inventory = {
-    
+        
     "Bag":{
         "Gold":{"Value": 50
         },
@@ -35,12 +35,10 @@ Inventory = {
         },
         "HP Potion": {"Value": 3
         },
+        }
     }
-}
-
 
 def display_room(player_choice):
-
     player_choice = world[player_choice]
     print (player_choice["description"])
     choices = ", " .join(player_choice["choice"])
@@ -51,37 +49,50 @@ def access_inventory(access):
     access = ", " .join(Inventory["Bag"])
     print (access)
     #Place holder for modifying inventory.
-    
+        
 overview = ", " .join(Inventory["Bag"])
 
 def combat():
     pass
- 
+    
+def merchant():
+    pass
 
 current_room = "Road"
-alive = True
-counter = 0
+deathcounter = 0
 print ("Type Inventory to acess it.")
+alive = True
 
 while alive is True:
-    
+       
     player_choice = input(f"what would you like to do? ").capitalize()
     print (f"You choose to: {player_choice}")
     if player_choice in world:
-        current_room = player_choice
-        display_room(current_room)
-    
+            current_room = player_choice
+            display_room(current_room)
+        
     if player_choice == "Room":
-        print ("Got the money to pay, stranger?")
+
+            print ("Got the money to pay, stranger? it costs 50 gold.")
+            choice = input("Will you pay the gold? Y/N ").capitalize()
+            if choice == "Y":
+                if Inventory["Bag"]["Gold"]["Value"] >= 50:
+                    Inventory["Bag"]["Gold"]["Value"] -= 50
+                    print ("Pleasure doing business.")
+                    display_room("Unlockedroom")
+                else:
+                    print ("Not enough money, get out of here.")
+            elif choice == "N":
+                print ("Well, get out of here then.")
 
     elif player_choice not in world and player_choice != "Inventory":
-        print ("Cannot go there!")
-        counter += 1
-        if counter >= 3:
-            print ("You wander aimlessly towards the world, your luck eventually ran out, something got you, and no one ever heard from you again\nYou DIED")
-            alive = False
+            print ("Cannot go there!")
+            deathcounter += 1
+            if deathcounter >= 3:
+                print ("You wander aimlessly towards the world, your luck eventually ran out, something got you, and no one ever heard from you again\nYou DIED")
+                alive = False
 
-# - INVENTORY SECTION - #
+    # - INVENTORY SECTION - #
 
     if player_choice == "Inventory":
 
@@ -96,7 +107,7 @@ while alive is True:
 
             elif inv_open == "Modify":
                 access = input("What you want to see?\n").capitalize()
-                
+                    
                 if access in Inventory["Bag"]:
                     show = Inventory["Bag"][access]["Value"]
                     print (f"You have {show} {access}")
