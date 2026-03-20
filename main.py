@@ -6,7 +6,7 @@ print ("you've been walking for too long, the only options would be the Tavern t
 world = {
 
     "Road":{
-        "description": "The road, you've been walking for too long, the only options would be the Tavern to the east of here, or the forest to the north.",
+        "description": "The road, you've been walking for too long, the only options would be the *Tavern* to the east of here, or the *forest* to the north.",
         "choice": ["Forest", "Tavern"]
     },
     "Tavern":{
@@ -20,6 +20,12 @@ world = {
        
 }
 
+Inventory = {
+    "Gold": 50,
+    "Health Potion": 3,
+    "Dagger": 1,
+}
+
 def display_room(player_choice):
 
     player_choice = world[player_choice]
@@ -27,25 +33,52 @@ def display_room(player_choice):
     choices = ", " .join(player_choice["choice"])
     print (f"exits: {choices}")
 
-    
+
+def access_inventory(acess):
+    acess = Inventory[acess]
+    print (acess)
+    #Place holder for modifying inventory.
+
+def combat():
+    pass
+ 
+
 current_room = "Road"
 alive = True
 counter = 0
+print ("Type Inventory to acess it.")
 
 while alive is True:
     
     player_choice = input(f"what would you like to do? ").capitalize()
-    print (f"you choose to: {player_choice}")
+    print (f"You choose to: {player_choice}")
     if player_choice in world:
         current_room = player_choice
         display_room(current_room)
-
-    else: 
+    
+    elif player_choice not in world and not "Inventory":
         print ("Cannot go there!")
         counter += 1
         if counter >= 3:
             print ("You wander aimlessly towards the world, your luck eventually ran out, something got you, and no one ever heard from you again\nYou DIED")
             alive = False
+
+    if player_choice == "Inventory":
+        print (f"Your Inventory: {Inventory}")
+        inv_open = True
+        while inv_open is True:
+            #Place holder for in the future to be able to modify the inventory, pick and discart items found in the world
+            inv_open = input("Type 'Exit' to leave.").capitalize()
+            if inv_open == "Exit":
+                inv_open = False
+
+
+
+
+
+
+
+
        
 
 
