@@ -20,17 +20,24 @@ world = {
         "choice": ["Cave", "North", "Road"]
     },
 
-    "Room":{
+    "Unlockedroom":{
         "description": "You rent a room, costing all the gold you took with you in your jorney, atleast, some rest for the night before continuing",
         "choice": ["placeholder", "placeholder"]
     }, 
 }
 
 Inventory = {
-    "Gold": 50,
-    "Health Potion": 3,
-    "Dagger": 1,
+    
+    "Bag":{
+        "Gold":{"Value": 50
+        },
+        "Dagger":{"Value": 1
+        },
+        "HP Potion": {"Value": 3
+        },
+    }
 }
+
 
 def display_room(player_choice):
 
@@ -41,10 +48,11 @@ def display_room(player_choice):
 
 
 def access_inventory(access):
-    item = access
-    access = Inventory[access]
-    print (f"You have {access} {item}")
+    access = ", " .join(Inventory["Bag"])
+    print (access)
     #Place holder for modifying inventory.
+    
+overview = ", " .join(Inventory["Bag"])
 
 def combat():
     pass
@@ -63,6 +71,9 @@ while alive is True:
         current_room = player_choice
         display_room(current_room)
     
+    if player_choice == "Room":
+        print ("Got the money to pay, stranger?")
+
     elif player_choice not in world and player_choice != "Inventory":
         print ("Cannot go there!")
         counter += 1
@@ -70,8 +81,12 @@ while alive is True:
             print ("You wander aimlessly towards the world, your luck eventually ran out, something got you, and no one ever heard from you again\nYou DIED")
             alive = False
 
+# - INVENTORY SECTION - #
+
     if player_choice == "Inventory":
-        print (f"Your Inventory: {Inventory}")
+
+        print (overview)
+
         inv_open = True
         while inv_open is True:
 
@@ -81,12 +96,17 @@ while alive is True:
 
             elif inv_open == "Modify":
                 access = input("What you want to see?\n").capitalize()
-                access_inventory(access)
                 
-                inv_open = True
+                if access in Inventory["Bag"]:
+                    show = Inventory["Bag"][access]["Value"]
+                    print (f"You have {show} {access}")
+
+                else:
+                    print ("You dont have this item")
+                    inv_open = True
 
             else:
-                print ("You don't have this item")
+                print ("Modify to manipulate inventory or 'Exit' to leave.")
                 inv_open = True
 
 
