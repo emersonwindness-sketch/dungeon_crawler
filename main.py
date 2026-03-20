@@ -6,18 +6,24 @@ print ("you've been walking for too long, the only options would be the Tavern t
 world = {
 
     "Road":{
-        "description": "The road, you've been walking for too long, the only options would be the *Tavern* to the east of here, or the *forest* to the north.",
+        "description": "The road, you've been walking for too long, the only options would be the Tavern to the east of here, or the Forest to the north.",
         "choice": ["Forest", "Tavern"]
     },
+
     "Tavern":{
-        "description": "A confortable place to stay the night, that is, if you have the money to pay?",
+        "description": "You enter the Tavern, a comfortable place to stay the night, that is, if you have the money to pay?",
         "choice": ["Room", "Road"]
     },
+
     "Forest":{
         "description": "You keep walking towards the forest, however, it is eerie quiet... something isnt right.",
         "choice": ["Cave", "North", "Road"]
     },
-       
+
+    "Room":{
+        "description": "You rent a room, costing all the gold you took with you in your jorney, atleast, some rest for the night before continuing",
+        "choice": ["placeholder", "placeholder"]
+    }, 
 }
 
 Inventory = {
@@ -34,9 +40,10 @@ def display_room(player_choice):
     print (f"exits: {choices}")
 
 
-def access_inventory(acess):
-    acess = Inventory[acess]
-    print (acess)
+def access_inventory(access):
+    item = access
+    access = Inventory[access]
+    print (f"You have {access} {item}")
     #Place holder for modifying inventory.
 
 def combat():
@@ -56,7 +63,7 @@ while alive is True:
         current_room = player_choice
         display_room(current_room)
     
-    elif player_choice not in world and not "Inventory":
+    elif player_choice not in world and player_choice != "Inventory":
         print ("Cannot go there!")
         counter += 1
         if counter >= 3:
@@ -67,10 +74,20 @@ while alive is True:
         print (f"Your Inventory: {Inventory}")
         inv_open = True
         while inv_open is True:
-            #Place holder for in the future to be able to modify the inventory, pick and discart items found in the world
-            inv_open = input("Type 'Exit' to leave.").capitalize()
+
+            inv_open = input("Type 'Exit' to leave.\nType 'Modify' to discart or add items you found\n").capitalize()
             if inv_open == "Exit":
                 inv_open = False
+
+            elif inv_open == "Modify":
+                access = input("What you want to see?\n").capitalize()
+                access_inventory(access)
+                
+                inv_open = True
+
+            else:
+                print ("You don't have this item")
+                inv_open = True
 
 
 
