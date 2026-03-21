@@ -3,6 +3,9 @@ print ("------------------------------------------------------------------")
 print ("Walking for days, hiding in the shadows, avoiding anything and everyone, after all, you don't really know who is what they claim to be, well, not after the falling")
 print ("you've been walking for too long, the only options would be the Tavern to the east of here, or the forest to the north.")
 
+from inventory import *
+from unlock import *
+
 world = {
 
     "Road":{
@@ -22,36 +25,16 @@ world = {
 
     "Unlockedroom":{
         "description": "You rent a room, costing all the gold you took with you in your jorney, atleast, some rest for the night before continuing",
-        "choice": ["placeholder", "placeholder"]
+        "choice": ["Chest", "Tavern"]
     }, 
 }
-
-Inventory = {
-        
-    "Bag":{
-        "Gold":{"Value": 50
-        },
-        "Dagger":{"Value": 1
-        },
-        "HP Potion": {"Value": 3
-        },
-        }
-    }
 
 def display_room(player_choice):
     player_choice = world[player_choice]
     print (player_choice["description"])
     choices = ", " .join(player_choice["choice"])
-    print (f"exits: {choices}")
-
-
-def access_inventory(access):
-    access = ", " .join(Inventory["Bag"])
-    print (access)
-    #Place holder for modifying inventory.
-        
-overview = ", " .join(Inventory["Bag"])
-
+    print (f"Exits: {choices}")
+       
 def combat():
     pass
     
@@ -63,6 +46,7 @@ deathcounter = 0
 print ("Type Inventory to acess it.")
 alive = True
 
+
 while alive is True:
        
     player_choice = input(f"what would you like to do? ").capitalize()
@@ -72,14 +56,18 @@ while alive is True:
             display_room(current_room)
         
     if player_choice == "Room":
-
-            print ("Got the money to pay, stranger? it costs 50 gold.")
-            choice = input("Will you pay the gold? Y/N ").capitalize()
-            if choice == "Y":
-                if Inventory["Bag"]["Gold"]["Value"] >= 50:
-                    Inventory["Bag"]["Gold"]["Value"] -= 50
-                    print ("Pleasure doing business.")
-                    display_room("Unlockedroom")
+            if tavern_room == 1:
+                 print ("You already paid, you can go straight to your room, don't forget our costumer services!")
+                 print ("Exits: Chest, Tavern")
+            elif tavern_room == 0:
+                print ("Got the money to pay, stranger? it costs 50 gold.")
+                choice = input("Will you pay the gold? Y/N ").capitalize()
+                if choice == "Y":
+                    if Inventory["Bag"]["Gold"]["Value"] >= 50:
+                        Inventory["Bag"]["Gold"]["Value"] -= 50
+                        print ("Pleasure doing business.")
+                        display_room("Unlockedroom")
+                        tavern_room = 1
                 else:
                     print ("Not enough money, get out of here.")
             elif choice == "N":
