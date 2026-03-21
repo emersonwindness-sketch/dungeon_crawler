@@ -1,21 +1,19 @@
-Inventory = {
-    
-    "Bag":{
-        "Gold":{"Value": 50
-        },
-        "Dagger":{"Value": 1
-        },
-        "HP Potion": {"Value: 3"
-        },
-    }
-}
+class small_enemy:
+    health = 50
+    damage = 30
 
-def access_inventory(access):
-    access = Inventory["Bag"]
-    print (access)
+    def hp_debuff(self, hex_value):
+        self.health -= hex_value
 
+    def dmg_debuff(self, hex_value):
+        self.damage -= hex_value
 
-userinput = input("Choose something in the bag: ").capitalize()
-access_inventory(userinput)
+goblin = small_enemy()
 
+print (f"Goblin health: {goblin.health}")
 
+hex_value = int(input("Hex value for health: "))
+
+goblin.hp_debuff(hex_value)
+
+print (goblin.health)
