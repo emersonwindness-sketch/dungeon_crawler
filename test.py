@@ -1,19 +1,33 @@
-class small_enemy:
-    health = 50
-    damage = 30
+Inventory = {
+        
+    "Bag":{
+        "Gold":{"Value": 50
+        },
+        "Dagger":{"Value": 1
+        },
+        "Hp potion": {"Value": 3
+        },
+        }
+    }
 
-    def hp_debuff(self, hex_value):
-        self.health -= hex_value
+Chest = {}
 
-    def dmg_debuff(self, hex_value):
-        self.damage -= hex_value
 
-goblin = small_enemy()
+def move_inventory_to_chest(Item_name, num_items):
+    
+    if Item_name in Chest:
+        Chest[Item_name] += Inventory["Bag"][Item_name]["Value"][num_items]
+        Chest[Item_name]["Value"] += num_items
 
-print (f"Goblin health: {goblin.health}")
 
-hex_value = int(input("Hex value for health: "))
+    elif Item_name not in Chest:
+        Chest[Item_name] = {"Value": Inventory["Bag"][Item_name]["Value"] }
+        Chest[Item_name]["Value"] = num_items
 
-goblin.hp_debuff(hex_value)
 
-print (goblin.health)
+player_choice = input("What item from inventory would you like to keep on your chest?\n").capitalize()
+num_items = int(input("How many do you want to move?\n"))
+move_item = move_inventory_to_chest(player_choice, num_items)
+
+print (f"Current items in chest: {Chest}")
+print (f"Current items in inventory: {Inventory}")
