@@ -22,12 +22,11 @@ while loop is True:
             print ("You have none of this item")
         else: 
             if Item_name in Chest:
-                Chest[Item_name] += Inventory["Bag"][Item_name]["Value"][num_items]
                 Chest[Item_name]["Value"] += num_items
-                Inventory[Item_name]["Value"] -= num_items
+                Inventory["Bag"][Item_name]["Value"] -= num_items
 
             elif Item_name not in Chest:
-                Chest[Item_name] = {"Value": Inventory["Bag"][Item_name]["Value"] }
+                Chest[Item_name] = {"Value": Inventory["Bag"][Item_name]}
                 Chest[Item_name]["Value"] = num_items
                 Inventory["Bag"][Item_name]["Value"] -= num_items
 
