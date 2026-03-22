@@ -17,7 +17,7 @@ loop = True
 while loop is True:
 
     def move_inventory_to_chest(Item_name, num_items):
-        
+
         if Inventory["Bag"][Item_name]["Value"] <= 0:
             print ("You have none of this item")
         else: 
@@ -25,7 +25,6 @@ while loop is True:
                 Chest[Item_name] += Inventory["Bag"][Item_name]["Value"][num_items]
                 Chest[Item_name]["Value"] += num_items
                 Inventory[Item_name]["Value"] -= num_items
-
 
             elif Item_name not in Chest:
                 Chest[Item_name] = {"Value": Inventory["Bag"][Item_name]["Value"] }
