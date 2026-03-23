@@ -5,7 +5,7 @@ But to an actual read-me, here's what this is.
 
 Welcome to the most original name you'll ever see since the first video game ever back in 1958 "Tennis for Two": Dungeon Crawler
 
-It has a simple premise of crawling into the darkness of the unknow Dungeon, for now, it does not have the said dungeon, just some mechanics that i'm still working on:
+It has a simple premise of crawling into the darkness of the unknow Dungeon, but at the moment, it does not have the said dungeon, just some mechanics that i'm still working on:
 
 - World building
 - Dynamic inventory
