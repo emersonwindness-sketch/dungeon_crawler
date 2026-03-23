@@ -84,8 +84,8 @@ while alive is True:
 
     if player_choice == "Inventory":
 
-        print (overview)
-        
+        item_overview(Inventory)
+
         inv_open = True
         while inv_open is True:
 
@@ -95,18 +95,22 @@ while alive is True:
 
             elif inv_open == "Modify":
                 source = input("You want to move your inventory or take from chest?\nMove / Take: ").capitalize()
-                item_name = input("What item?").capitalize()
-                num_item = int(input("How many?"))
+                item_name = input("What item?\n").capitalize()
+                num_item = int(input("How many?\n"))
 
                 if source == "Move":
                     source = Inventory
                     destination = Chest
                     transfer_items(source, destination, item_name, num_item)
+                    item_overview(Inventory)
+                    item_overview(Chest)
 
                 elif source == "Take":
                     source = Chest
                     destination = Inventory
                     transfer_items(source, destination, item_name, num_item)
+                    item_overview(Inventory)
+                    item_overview(Chest)
 
             else:
                 print ("Modify to manipulate inventory or 'Exit' to leave.")
