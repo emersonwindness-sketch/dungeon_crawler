@@ -1,36 +1,36 @@
 Inventory = {
-        
-    "Bag":{
+
         "Gold":{"Value": 50
         },
         "Dagger":{"Value": 1
         },
-        "HP Potion": {"Value": 3
+        "HP potion": {"Value": 3
         },
+
         }
-    }
 
 Chest = {}
 
 
-def access_inventory(access):
-    access = ", " .join(Inventory["Bag"])
-    print (access)
-    #Place holder for modifying inventory.
+def transfer_items(source, destination, item_name, num_item):
 
-def move_inventory_to_chest(Item_name, num_items):
+    if item_name not in source:
+        print (f"The item '{item_name}' does not exist.\n")
+        return
+    if source[item_name]["Value"] <= 0:
+        print (f"You have no {item_name}\n")
+    else:
 
-    if Inventory["Bag"][Item_name]["Value"] <= 0:
-        print ("You have none of this item")
-    else: 
-        if Item_name in Chest:
-            Chest[Item_name]["Value"] += num_items
-            Inventory["Bag"][Item_name]["Value"] -= num_items
+        if item_name in destination:
+            destination[item_name]["Value"] += num_item
+            source[item_name]["Value"] -= num_item
+            return
 
-        elif Item_name not in Chest:
-            Chest[Item_name] = {"Value": Inventory["Bag"][Item_name]}
-            Chest[Item_name]["Value"] = num_items
-            Inventory["Bag"][Item_name]["Value"] -= num_items
+        if item_name not in destination:
+            destination[item_name] = {"Value": 0}
+            destination[item_name]["Value"] = num_item
+            source[item_name]["Value"] -= num_item
+            return
 
 
-overview = ", " .join(Inventory["Bag"])
+overview = ", " .join(Inventory)

@@ -63,8 +63,8 @@ while alive is True:
                 print ("Got the money to pay, stranger? it costs 50 gold.")
                 choice = input("Will you pay the gold? Y/N ").capitalize()
                 if choice == "Y":
-                    if Inventory["Bag"]["Gold"]["Value"] >= 50:
-                        Inventory["Bag"]["Gold"]["Value"] -= 50
+                    if Inventory["Gold"]["Value"] >= 50:
+                        Inventory["Gold"]["Value"] -= 50
                         print ("Pleasure doing business.")
                         display_room("Unlockedroom")
                         tavern_room = 1
@@ -85,7 +85,7 @@ while alive is True:
     if player_choice == "Inventory":
 
         print (overview)
-
+        
         inv_open = True
         while inv_open is True:
 
@@ -94,15 +94,19 @@ while alive is True:
                 inv_open = False
 
             elif inv_open == "Modify":
-                access = input("What you want to see?\n").capitalize()
-                    
-                if access in Inventory["Bag"]:
-                    show = Inventory["Bag"][access]["Value"]
-                    print (f"You have {show} {access}")
+                source = input("You want to move your inventory or take from chest?\nMove / Take: ").capitalize()
+                item_name = input("What item?").capitalize()
+                num_item = int(input("How many?"))
 
-                else:
-                    print ("You dont have this item")
-                    inv_open = True
+                if source == "Move":
+                    source = Inventory
+                    destination = Chest
+                    transfer_items(source, destination, item_name, num_item)
+
+                elif source == "Take":
+                    source = Chest
+                    destination = Inventory
+                    transfer_items(source, destination, item_name, num_item)
 
             else:
                 print ("Modify to manipulate inventory or 'Exit' to leave.")
