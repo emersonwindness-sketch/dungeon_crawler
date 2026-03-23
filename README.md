@@ -12,5 +12,5 @@ It has a simple premise of crawling into the darkness of the unknow Dungeon, but
 - Trading
 - Basic combat mechanics
 
-For now, the inventory and the walking around the world ( if you can call it that ) works as i intended, you will type everything to go and do things as well as making any action
+For now, the inventory and the walking around the world ( if you can call it that ) works as i intended, you will type everything to go and do things as well as making any action.
 There is no interface, so prepare your fingers ( MAYBE i'll do an basic interface with some actual grapichs in the future )
