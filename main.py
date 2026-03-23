@@ -5,6 +5,7 @@ print ("you've been walking for too long, the only options would be the Tavern t
 
 from inventory import *
 from unlock import *
+from trade import *
 
 world = {
 
@@ -26,7 +27,11 @@ world = {
     "Unlockedroom":{
         "description": "You rent a room, costing all the gold you took with you in your jorney, atleast, some rest for the night before continuing",
         "choice": ["Chest", "Tavern"]
-    }, 
+    },
+    "Cavern": {
+        "description": "In the midst of the darkness, you see something in the corner of a dark cave room, looks like someone, or, looked like someone one day\nNothing but a corpse, the problem lies in the fact that it doesn't look very rotten, it happened recently...",
+        "choice": ["Corpse Inventory", "Forest"]
+    }
 }
 
 def display_room(player_choice):
@@ -35,21 +40,14 @@ def display_room(player_choice):
     choices = ", " .join(player_choice["choice"])
     print (f"Exits: {choices}")
        
-def combat():
-    pass
-    
-def merchant():
-    pass
-
 current_room = "Road"
 deathcounter = 0
 print ("Type Inventory to acess it.")
 alive = True
 
-
 while alive is True:
        
-    player_choice = input(f"what would you like to do? ").capitalize()
+    player_choice = input(f"\nwhat would you like to do? ").capitalize()
     print (f"You choose to: {player_choice}")
     if player_choice in world:
             current_room = player_choice
@@ -63,15 +61,15 @@ while alive is True:
                 print ("Got the money to pay, stranger? it costs 50 gold.")
                 choice = input("Will you pay the gold? Y/N ").capitalize()
                 if choice == "Y":
-                    if Inventory["Gold"]["Value"] >= 50:
-                        Inventory["Gold"]["Value"] -= 50
+                    if Inventory["Gold"] >= 50:
+                        Inventory["Gold"] -= 50
                         print ("Pleasure doing business.")
                         display_room("Unlockedroom")
                         tavern_room = 1
-                else:
-                    print ("Not enough money, get out of here.")
-            elif choice == "N":
-                print ("Well, get out of here then.")
+                    else:
+                        print ("Not enough money, get out of here.")
+                elif choice == "N":
+                    print ("Well, get out of here then.")
 
     elif player_choice not in world and player_choice != "Inventory":
             print ("Cannot go there!")
@@ -86,35 +84,39 @@ while alive is True:
 
         item_overview(Inventory)
 
-        inv_open = True
-        while inv_open is True:
+        if current_room == "Room":            
+            inv_open = True
 
-            inv_open = input("Type 'Exit' to leave.\nType 'Modify' to discart or add items you found\n").capitalize()
-            if inv_open == "Exit":
-                inv_open = False
+            while inv_open is True:
+                inv_open = input("Type 'Exit' to leave.\nType 'Modify' to discart or add items you found\n").capitalize()
 
-            elif inv_open == "Modify":
-                source = input("You want to move your inventory or take from chest?\nMove / Take: ").capitalize()
-                item_name = input("What item?\n").capitalize()
-                num_item = int(input("How many?\n"))
+                if inv_open == "Exit":
+                    inv_open = False
 
-                if source == "Move":
-                    source = Inventory
-                    destination = Chest
-                    transfer_items(source, destination, item_name, num_item)
-                    item_overview(Inventory)
-                    item_overview(Chest)
+                elif inv_open == "Modify":
+                    source = input("You want to move your inventory or take from chest?\nMove / Take: ").capitalize()
+                    item_name = input("What item?\n").capitalize()
+                    num_item = int(input("How many?\n"))
 
-                elif source == "Take":
-                    source = Chest
-                    destination = Inventory
-                    transfer_items(source, destination, item_name, num_item)
-                    item_overview(Inventory)
-                    item_overview(Chest)
+                    if source == "Move":
+                        source = Inventory
+                        destination = Chest
+                        transfer_items(source, destination, item_name, num_item)
+                        item_overview(Inventory)
+                        item_overview(Chest)
 
-            else:
-                print ("Modify to manipulate inventory or 'Exit' to leave.")
-                inv_open = True
+                    elif source == "Take":
+                        source = Chest
+                        destination = Inventory
+                        transfer_items(source, destination, item_name, num_item)
+                        item_overview(Inventory)
+                        item_overview(Chest)
+
+                else:
+                    print ("Modify to manipulate inventory or 'Exit' to leave.")
+                    inv_open = True
+        else: 
+            print ("\nNo chest or loot nerby to interact.")
 
 
 
