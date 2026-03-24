@@ -12,7 +12,7 @@ def trading(source, trade_item):
         return
     else:        
         source["Gold"] -= trade_item.value
-        source[trade_item.name] = {"Value": 1}
+        source[trade_item.name] = 1
         print (f"Trade complete!\nYou bought: {trade_item.name}")
         trade_item.sold = True
 

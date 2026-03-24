@@ -36,10 +36,13 @@ def transfer_items(source, destination, item_name, num_item):
             return
 
 def item_overview(source):
+    
     if source == Inventory:
         print ("\n----Inventory----\n")
+
     elif source == Chest:
         print ("\n------Chest------\n")
+
     for item in source:
         value = source[item]
         overview = f"{item}: {value}"
