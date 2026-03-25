@@ -60,18 +60,24 @@ while True:
     # Safe Room interactions
 
     if player_choice == "Bartender":
-        player_choice = input("Bartender: Want a room, stranger? it will cost ya.\nPay for the room? Y | N: ").capitalize()
-        if player_choice == "Y":
-            trading(Inventory, Room_key)
+        if "Room key" in Inventory:
+            print ("you already got the key mate, go to your room.")
+            
+        else:    
+            player_choice = input("Bartender: Want a room, stranger? it will cost ya.\nPay for the room? Y | N: ").capitalize()
+            if player_choice == "Y":
+                trading(Inventory, Room_key)
+                del unblocked[0]
+                safe_room_tavern(Inventory, world)
 
-        elif player_choice == "N":
-            print ("Bartender: What are doing here then? leave, this Tavern is for costumers only.")
-        
-        else:
-            print ("Bartender: You're making no bloody sense mate, leave, i don't have the time to deal with you")
+            elif player_choice == "N":
+                print ("Bartender: What are doing here then? leave, this Tavern is for costumers only.")
+            
+            else:
+                print ("Bartender: You're making no bloody sense mate, leave, i don't have the time to deal with you")
 
     if player_choice == "Room":
-        safe_room_tavern(Inventory, world, current_room)
+        safe_room_tavern(Inventory, world)
 
     # Inventory section
 
