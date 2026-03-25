@@ -17,3 +17,10 @@ hex_value = int(input("Hex value for health: "))
 goblin.hp_debuff(hex_value)
 
 print (goblin.health)
+
+class map:
+
+    def __init__ (self, name, dest_1, dest_2):
+        self.name = name
+        self.dest_1 = dest_1
+        self.dest_2 = dest_2
