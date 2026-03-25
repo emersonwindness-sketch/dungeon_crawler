@@ -34,7 +34,6 @@ world = {
         "description": "In the midst of the darkness, you see something in the corner of a dark cave room, looks like someone, or, looked like someone one day\nNothing but a corpse, the problem lies in the fact that it doesn't look very rotten, it happened recently...",
         "choice": ["Corpse Inventory", "Forest"]
     },
-
 }
 
 def display_room(player_choice):
@@ -60,9 +59,6 @@ while True:
 
     # Safe Room interactions
 
-    if player_choice == "Room":
-        safe_room_tavern(Inventory, world)
-
     if player_choice == "Bartender":
         player_choice = input("Bartender: Want a room, stranger? it will cost ya.\nPay for the room? Y | N: ").capitalize()
         if player_choice == "Y":
@@ -74,43 +70,26 @@ while True:
         else:
             print ("Bartender: You're making no bloody sense mate, leave, i don't have the time to deal with you")
 
+    if player_choice == "Room":
+        safe_room_tavern(Inventory, world, current_room)
+
     # Inventory section
 
     if player_choice == "Inventory":
-
         item_overview(Inventory)
 
-                
-        inv_open = True
+        if current_room == "Room":
+            chest_interaction(Inventory)
 
-        while inv_open is True:
-            inv_open = input("Type 'Exit' to leave.\nType 'Modify' to discart or add items you found\n").capitalize()
+        else: 
+            print ("\nTo stash your items, go to a room where there is a chest present.\n")
+            
 
-            if inv_open == "Exit":
-                inv_open = False
 
-            elif inv_open == "Modify":
-                source = input("You want to move your inventory or take from chest?\nMove / Take: ").capitalize()
-                item_name = input("What item?\n").capitalize()
-                num_item = int(input("How many?\n"))
 
-                if source == "Move":
-                    source = Inventory
-                    destination = Chest
-                    transfer_items(source, destination, item_name, num_item)
-                    item_overview(Inventory)
-                    item_overview(Chest)
+        
 
-                elif source == "Take":
-                    source = Chest
-                    destination = Inventory
-                    transfer_items(source, destination, item_name, num_item)
-                    item_overview(Inventory)
-                    item_overview(Chest)
-
-                else:
-                    print ("Modify to manipulate inventory or 'Exit' to leave.")
-                    inv_open = True
+        
 
 
 

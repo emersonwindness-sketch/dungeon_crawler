@@ -3,6 +3,7 @@ Inventory = {
         "Gold": 50,
         "Dagger": 1,
         "Hp potion": 3,
+        
         }
 
 Chest = {}
@@ -36,7 +37,7 @@ def transfer_items(source, destination, item_name, num_item):
             return
 
 def item_overview(source):
-    
+
     if source == Inventory:
         print ("\n----Inventory----\n")
 
@@ -48,6 +49,25 @@ def item_overview(source):
         overview = f"{item}: {value}"
         print (overview)
 
-def chest_interaction(source):
-    pass
-        
+def chest_interaction(Inventory):
+            
+    inv_open = True
+    while inv_open is True:
+        player_choice = input("\n----To exit inventory, type 'Exit'----\nChest nearby! You want to store or take items?\n 'Take' or 'Store': ").capitalize()
+
+        if player_choice == "Take":
+            item_name = input("What item do you want to move?: ").capitalize()
+            num_item = int(input("How many?: "))
+            transfer_items(Chest, Inventory, item_name, num_item)
+            item_overview(Inventory)
+            item_overview(Chest)
+
+        if player_choice == "Store":
+            item_name = input("What item do you want to move?: ").capitalize()
+            num_item = int(input("How many?: "))
+            transfer_items(Inventory, Chest, item_name, num_item)
+            item_overview(Inventory)
+            item_overview(Chest)
+
+        if player_choice == "Exit":
+            inv_open = False
