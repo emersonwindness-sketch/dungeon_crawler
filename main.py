@@ -6,6 +6,7 @@ print ("you've been walking for too long, the only options would be the Tavern t
 from inventory import *
 from unlock import *
 from trade import *
+from mechanics.maps.engine import *
 
 #unblocked is just a place holder so the game wont tell you everytime you want to do something, like modifying your inventory or talking to the bartender that "cannot go there!" i'll find a fix for this in the future.
 unblocked = ["Room", "Bartender", "Modify"]
@@ -35,13 +36,7 @@ world = {
         "choice": ["Corpse Inventory", "Forest"]
     },
 }
-
-def display_room(player_choice):
-    player_choice = world[player_choice]
-    print (player_choice["description"])
-    choices = ", " .join(player_choice["choice"])
-    print (f"Exits: {choices}")
-       
+     
 current_room = "Road"
 print (f"{current_room}\nType Inventory to acess it.")
 
@@ -52,7 +47,7 @@ while True:
 
     if player_choice in world:
         current_room = player_choice
-        display_room(current_room)
+        display_room(current_room, world)
 
     elif player_choice not in world and player_choice != "Inventory" and player_choice not in unblocked:
         print ("Cannot go there!")
@@ -62,7 +57,7 @@ while True:
     if player_choice == "Bartender":
         if "Room key" in Inventory:
             print ("you already got the key mate, go to your room.")
-            
+
         else:    
             player_choice = input("Bartender: Want a room, stranger? it will cost ya.\nPay for the room? Y | N: ").capitalize()
             if player_choice == "Y":
