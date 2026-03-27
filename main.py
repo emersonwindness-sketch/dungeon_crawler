@@ -1,89 +1,47 @@
 print ("Welcome to the depricated, dark and dead world after the awakening")
 print ("------------------------------------------------------------------")
-print ("Walking for days, hiding in the shadows, avoiding anything and everyone, after all, you don't really know who is what they claim to be, well, not after the falling")
-print ("you've been walking for too long, the only options would be the Tavern to the east of here, or the forest to the north.")
+print ("Walking for days, hiding in the shadows, avoiding anything and everyone, after all, you don't really know who is what they claim to be, well, not after the falling\nType 'inventory' to access it.\n")
 
 from inventory import *
 from unlock import *
 from trade import *
-from mechanics.maps.engine import *
+from mechanics.engine import *
+from mechanics.maps.all_maps import *
 
-#unblocked is just a place holder so the game wont tell you everytime you want to do something, like modifying your inventory or talking to the bartender that "cannot go there!" i'll find a fix for this in the future.
-unblocked = ["Room", "Bartender", "Modify"]
-world = {
+# -- Starting Area -- #
 
-    "Road":{
-        "description": "The road, you've been walking for too long, the only options would be the Tavern to the east of here, or the Forest to the north.",
-        "choice": ["Forest", "Tavern"]
-    },
+current_map = road
+print (f"{current_map.description}\n Exits: {current_map.access}")
 
-    "Tavern":{
-        "description": "You enter the Tavern, a comfortable place to stay the night, that is, if you have the money to pay?",
-        "choice": ["Room", "Road", "Bartender"]
-    },
-
-    "Forest":{
-        "description": "You keep walking towards the forest, however, it is eerie quiet... something isnt right.",
-        "choice": ["Cave", "North", "Road"]
-    },
-
-    "Unlockedroom":{
-        "description": "Your room for the forseeable future, not much, but it will suffice, a Chest for your items and a bed for some rest.",
-        "choice": ["Chest", "Tavern"]
-    },
-    "Cavern": {
-        "description": "In the midst of the darkness, you see something in the corner of a dark cave room, looks like someone, or, looked like someone one day\nNothing but a corpse, the problem lies in the fact that it doesn't look very rotten, it happened recently...",
-        "choice": ["Corpse Inventory", "Forest"]
-    },
-}
-     
-current_room = "Road"
-print (f"{current_room}\nType Inventory to acess it.")
+# -- Main Gameplay Loop -- #
 
 while True:
 
     player_choice = input(f"\nwhat would you like to do? ").capitalize()
-    print (f"You choose to: {player_choice}")
+    current_map = world_access_check(player_choice, current_map, world_registry)
+    
+    if current_map.has_container is True:
+        player_choice = input(f"This place has a container named '{current_map.container_name}'\nType 'container' to interact with it\n").capitalize()
+        
+        if player_choice == "Container":
+            container_overview(Inventory)
+            container_interaction(Inventory)
 
-    if player_choice in world:
-        current_room = player_choice
-        display_room(current_room, world)
+        else:
+            current_map = world_access_check(player_choice, current_map, world_registry)
+            print (f"{current_map.description}\n{current_map.access}")
 
-    elif player_choice not in world and player_choice != "Inventory" and player_choice not in unblocked:
-        print ("Cannot go there!")
-
-    # Safe Room interactions
-
-    if player_choice == "Bartender":
-        if "Room key" in Inventory:
-            print ("you already got the key mate, go to your room.")
-
-        else:    
-            player_choice = input("Bartender: Want a room, stranger? it will cost ya.\nPay for the room? Y | N: ").capitalize()
-            if player_choice == "Y":
-                trading(Inventory, Room_key)
-                del unblocked[0]
-                safe_room_tavern(Inventory, world)
-
-            elif player_choice == "N":
-                print ("Bartender: What are doing here then? leave, this Tavern is for costumers only.")
-            
-            else:
-                print ("Bartender: You're making no bloody sense mate, leave, i don't have the time to deal with you")
-
-    if player_choice == "Room":
-        safe_room_tavern(Inventory, world)
-
-    # Inventory section
-
+# -- Inventory -- #
+    
     if player_choice == "Inventory":
-        item_overview(Inventory)
+        container_overview(Inventory)
 
-        if current_room == "Room":
-            chest_interaction(Inventory)
+            
 
-        else: 
-            print ("\nTo stash your items, go to a room where there is a chest present.\n")
+            
+        
+
+
             
 
 

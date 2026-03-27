@@ -8,9 +8,6 @@ Inventory = {
 
 Chest = {}
 
-Loot = {
-    "Old key": 1,
-}
 
 def transfer_items(source, destination, item_name, num_item):
 
@@ -36,7 +33,7 @@ def transfer_items(source, destination, item_name, num_item):
                del source[item_name]
             return
 
-def item_overview(source):
+def container_overview(source):
 
     if source == Inventory:
         print ("\n----Inventory----\n")
@@ -49,7 +46,7 @@ def item_overview(source):
         overview = f"{item}: {value}"
         print (overview)
 
-def chest_interaction(Inventory):
+def container_interaction(Inventory):
             
     inv_open = True
     while inv_open is True:
@@ -59,15 +56,15 @@ def chest_interaction(Inventory):
             item_name = input("What item do you want to move?: ").capitalize()
             num_item = int(input("How many?: "))
             transfer_items(Chest, Inventory, item_name, num_item)
-            item_overview(Inventory)
-            item_overview(Chest)
+            container_overview(Inventory)
+            container_overview(Chest)
 
         if player_choice == "Store":
             item_name = input("What item do you want to move?: ").capitalize()
             num_item = int(input("How many?: "))
             transfer_items(Inventory, Chest, item_name, num_item)
-            item_overview(Inventory)
-            item_overview(Chest)
+            container_overview(Inventory)
+            container_overview(Chest)
 
         if player_choice == "Exit":
             inv_open = False
