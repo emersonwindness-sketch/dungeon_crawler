@@ -26,7 +26,7 @@ def transfer_items(source, destination, item_name, num_item):
             return
 
         if item_name not in destination:
-            destination[item_name] = {"Value": 0}
+            destination[item_name] = 1
             destination[item_name] = num_item
             source[item_name] -= num_item
             if source[item_name] <= 0 and source[item_name] != "Gold":
@@ -49,22 +49,31 @@ def container_overview(source):
 def container_interaction(Inventory):
             
     inv_open = True
-    while inv_open is True:
-        player_choice = input("\n----To exit inventory, type 'Exit'----\nChest nearby! You want to store or take items?\n 'Take' or 'Store': ").capitalize()
 
+    player_choice = input("\n----To exit inventory, type 'Exit'----\nYou want to store or take items?\n 'Take' or 'Store': ").capitalize()
+    while inv_open is True:       
         if player_choice == "Take":
-            item_name = input("What item do you want to move?: ").capitalize()
-            num_item = int(input("How many?: "))
-            transfer_items(Chest, Inventory, item_name, num_item)
-            container_overview(Inventory)
-            container_overview(Chest)
+            try: 
+                item_name = input("What item do you want to move?: ").capitalize()
+                num_item = int(input("How many?: "))
+                transfer_items(Chest, Inventory, item_name, num_item)
+                container_overview(Inventory)
+                container_overview(Chest)
+            except ValueError:
+                print ("Please, use only numbers for the quantity of items.")
 
         if player_choice == "Store":
-            item_name = input("What item do you want to move?: ").capitalize()
-            num_item = int(input("How many?: "))
-            transfer_items(Inventory, Chest, item_name, num_item)
-            container_overview(Inventory)
-            container_overview(Chest)
+            try: 
+                item_name = input("What item do you want to move?: ").capitalize()
+                num_item = int(input("How many?: "))
+                transfer_items(Inventory, Chest, item_name, num_item)
+                container_overview(Inventory)
+                container_overview(Chest)
+            except ValueError:
+                print ("Please, use only numbers for the quantity of items.")
 
         if player_choice == "Exit":
             inv_open = False
+        
+        else:
+            player_choice = input("Please, choose one of them: 'Take' | Store | Exit : ").capitalize()
