@@ -1,12 +1,9 @@
-Inventory = {
+from mechanics.maps.all_items import *
 
-        "Gold": 50,
-        "Dagger": 1,
-        "Hp potion": 3,
-        
-        }
+Inventory = starting_player_items
 
 Chest = {}
+
 
 
 def transfer_items(source, destination, item_name, num_item):
@@ -42,8 +39,14 @@ def container_overview(source):
         print ("\n------Chest------\n")
 
     for item in source:
-        value = source[item]
-        overview = f"{item}: {value}"
+        item_obj = source[item]
+        
+        name = item_obj.name
+        weight = item_obj.weight * item_obj.quantity
+        value = item_obj.value * item_obj.quantity
+        quantity = item_obj.quantity
+
+        overview = f"{name}: {value}g | {weight} kg | {quantity} copy's."
         print (overview)
 
 def container_interaction(Inventory):

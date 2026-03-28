@@ -1,64 +1,74 @@
-from mechanics.maps.data import map, npc
+from mechanics.maps.data import Map, Npc
 
-#
+#-- Road --#
 
-#--Road--#
-
-road = map("Road",
+road = Map("Road",
            "The road, you've been walking for too long, the only options would be the Tavern to the east of here, or the Forest to the north.",
            ["Tavern", "Forest"],
            False,
-           "None"
+           "NoContainer",
+           False,
+           "NoNPC"
           )
 
-#--Tavern--#
+#-- Tavern --#
 
-tavern = map("Tavern",
+tavern = Map("Tavern",
              "You enter the Tavern, a comfortable place to stay the night, that is, if you have the money to pay?", 
             ["Room", "Road"],
             False,
-            "None"
+            "None",
+            True,
+            "Dan",
              )
 
-bartender = npc("Bartender",
+bartender = Npc("Bartender",
                 "Hello there mate, looking to stay? the room will cost you 50 gold.",
              )
 
-#--Room--#
+#-- Room --#
 
-room = map("Room",
+room = Map("Room",
            "Your own room, for now, you paid a decent chunk of gold, but atleast you'll have some comfort, a chest and a bed.",
            ["Tavern"],
            True,
-           "Chest"
+           "Chest",
+           False,
+           "NoNPC"
             )
 
-#--Forest--#
+#-- Forest --#
 
-forest = map ("Forest",
+forest = Map ("Forest",
             "Entering the forest, you feel a weird sensation, fear perhaps? caution? anxiety? you can't tell, but the feeling of being watched is strong here.",
             ["Cave", "Road"],
             False,
-            "None"
+            "NoContainer",
+            False,
+            "NoNPC"
             )
 
-#--Cave--#
+#-- Cave --#
 
-cave = map("Cave",
+cave = Map("Cave",
            "Too dark too see, you will need some kind of light to go any further",
            ["Forest"],
            False,
-           "None"
+           "NoContainer",
+           False,
+           "NoNPC"
            )
 
-#--World Registry--#
+#-- World Registry --#
 
-#Everytime a new map is added, please, put them in here so the program can actually read the map.
+#Everytime a new map is added, please, put its name then the object itself, so the program can actually read it.
 
 world_registry = { 
+
         "Road": road,
         "Forest": forest,
         "Tavern": tavern,
         "Room": room,
         "Cave": cave
+
 }
