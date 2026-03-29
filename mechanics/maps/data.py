@@ -10,11 +10,6 @@ class Map:
         self.has_trader = has_trader
         self.trader_name = trader_name
 
-class Npc:
-    def __init__(self, name, dialog):
-        self.name = name
-        self.dialog = dialog
-
 # -- Instructions on how to create items, consumables and keys.
 
 class Items:

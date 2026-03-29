@@ -6,7 +6,8 @@ starting_player_items = {
 
     "Gold": Currency("Gold", 0, 1, 50),
     "Dagger": Items("Dagger", 0.50, 0, 1),
-    "Lamp": Items("Lamp", 1.50, 0, 1)
+    "Lamp": Items("Lamp", 1.50, 1, 1),
+    "Broken_lamp": Items("Broken_lamp", 2.0, 0, 1)
 
 }
 

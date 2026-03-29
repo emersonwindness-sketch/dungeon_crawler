@@ -1,4 +1,4 @@
-from mechanics.maps.data import Map, Npc
+from mechanics.maps.data import Map
 
 #-- Road --#
 
@@ -22,9 +22,6 @@ tavern = Map("Tavern",
             "Dan",
              )
 
-bartender = Npc("Bartender",
-                "Hello there mate, looking to stay? the room will cost you 50 gold.",
-             )
 
 #-- Room --#
 

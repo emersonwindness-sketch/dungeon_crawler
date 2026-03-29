@@ -6,7 +6,7 @@ Inventory = starting_player_items
 
 Chest = {}
 
-
+trader_inventory = {}
 
 def transfer_items(source, destination, item_name, num_item):
     try:
@@ -29,7 +29,7 @@ def transfer_items(source, destination, item_name, num_item):
     source[item_name].quantity -= num_item
 
     if source[item.name].quantity <=0:
-        del source[item_name]
+        del source[item]
 
     container_overview(Inventory)        
     container_overview(Chest)
@@ -41,7 +41,8 @@ def container_overview(source):
 
     elif source == Chest:
         print ("\n------Chest------\n")
-
+    
+    total_weight = 0 
     for x in source:
         item_obj = source[x]
         
@@ -49,9 +50,12 @@ def container_overview(source):
         weight = item_obj.weight * item_obj.quantity
         value = item_obj.value * item_obj.quantity
         quantity = item_obj.quantity
+        total_weight += weight
 
         overview = f"{name}: {value}g | {weight} kg | {quantity} copy's."
         print (overview)
+
+    print (f"You are carrying {total_weight}kg's")
 
 def container_interaction(Inventory):
             
@@ -81,3 +85,6 @@ def container_interaction(Inventory):
         
         else:
             player_choice = input("Choose one of them: 'Take' | Store | Exit : ").capitalize()
+
+def trade(inventory, trader_inventory):
+    pass

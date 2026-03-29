@@ -25,7 +25,7 @@ while True:
     if current_map.has_container is True:
         print (f"This place has a container named '{current_map.container_name}'\nType 'container' if you want to interact with it: ")
         
-    if player_choice == "Container" and current_map.has_container is True:
+    if current_map.has_container is True and player_choice == "Container":
         container_overview(Inventory)
         container_overview(Chest)
         container_interaction(Inventory)
@@ -37,11 +37,16 @@ while True:
 
 # -- Trade -- #
 
+    if current_map.has_trader is True:
+        print ("There's a trader here, type 'Trade' to see his inventory.")
+
+    if current_map.has_trader is True and player_choice =="Trade":
+        pass
+
             
 
         
         
-
 
 
         
