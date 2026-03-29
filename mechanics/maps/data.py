@@ -24,6 +24,10 @@ class Items:
         self.value = value
         self.quantity = quantity
 
+    def copy (self, amount):
+        return type(self)(self.name, self.weight, self.value, amount)
+
+       
 class Consumables(Items):
     def __init__(self, name, weight, value, quantity, amount):
         super().__init__(name, weight, value, quantity)
@@ -32,3 +36,6 @@ class Consumables(Items):
 class Currency(Items):
     def __init__ (self, name, weight, value, quantity):
         super().__init__(name, weight = 0.0, value = value, quantity = quantity)
+
+# -- Definition to copy items and make it work with transfers.
+

@@ -5,7 +5,7 @@ print ("Walking for days, hiding in the shadows, avoiding anything and everyone,
 from inventory import *
 from unlock import *
 from trade import *
-from mechanics.engine import *
+from engine import *
 from mechanics.maps.all_maps import *
 
 # -- Starting Area -- #
@@ -17,32 +17,30 @@ print (f"{current_map.description}\n Exits: {current_map.access}")
 
 while True:
 
-    player_choice = input(f"\nwhat would you like to do? ").capitalize()
+    player_choice = input(f"\nwhat would you like to do?: ").capitalize()
     current_map = world_access_check(player_choice, current_map, world_registry)
+
+# -- Container Interaction -- #
     
     if current_map.has_container is True:
-        player_choice = input(f"This place has a container named '{current_map.container_name}'\nType 'container' to interact with it\n").capitalize()
+        print (f"This place has a container named '{current_map.container_name}'\nType 'container' if you want to interact with it: ")
         
-        if player_choice == "Container":
-            container_overview(Inventory)
-            container_interaction(Inventory)
-
-        else:
-            current_map = world_access_check(player_choice, current_map, world_registry)
-            print (f"{current_map.description}\n{current_map.access}")
+    if player_choice == "Container" and current_map.has_container is True:
+        container_overview(Inventory)
+        container_overview(Chest)
+        container_interaction(Inventory)
 
 # -- Inventory -- #
     
     if player_choice == "Inventory":
         container_overview(Inventory)
 
+# -- Trade -- #
+
             
 
         
         
-
-
-            
 
 
 

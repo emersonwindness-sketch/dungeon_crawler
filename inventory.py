@@ -1,4 +1,6 @@
+from mechanics.maps.all_maps import *
 from mechanics.maps.all_items import *
+from mechanics.maps.data import *
 
 Inventory = starting_player_items
 
@@ -7,28 +9,30 @@ Chest = {}
 
 
 def transfer_items(source, destination, item_name, num_item):
+    try:
+        
+        item = source[item_name]
+        name = item.name
 
-    if item_name not in source:
-        print (f"The item '{item_name}' does not exist.\n")
+    except KeyError:
+        print ("Item not found")
         return
-    if source[item_name] <= 0:
-        print (f"You have no {item_name}\n")
-    else:
+    
+    if source[item_name].quantity < num_item:
+        print (f"You only have {item.quantity} of those.")
+        return
 
-        if item_name in destination:
-            destination[item_name] += num_item
-            source[item_name] -= num_item
-            if source[item_name] <= 0 and source[item_name] != "Gold":
-               del source[item_name]
-            return
+    if name not in destination:
+        destination[item_name] = item.copy(0)
 
-        if item_name not in destination:
-            destination[item_name] = 1
-            destination[item_name] = num_item
-            source[item_name] -= num_item
-            if source[item_name] <= 0 and source[item_name] != "Gold":
-               del source[item_name]
-            return
+    destination[item_name].quantity += num_item
+    source[item_name].quantity -= num_item
+
+    if source[item.name].quantity <=0:
+        del source[item_name]
+
+    container_overview(Inventory)        
+    container_overview(Chest)
 
 def container_overview(source):
 
@@ -38,8 +42,8 @@ def container_overview(source):
     elif source == Chest:
         print ("\n------Chest------\n")
 
-    for item in source:
-        item_obj = source[item]
+    for x in source:
+        item_obj = source[x]
         
         name = item_obj.name
         weight = item_obj.weight * item_obj.quantity
@@ -54,14 +58,13 @@ def container_interaction(Inventory):
     inv_open = True
 
     player_choice = input("\n----To exit inventory, type 'Exit'----\nYou want to store or take items?\n 'Take' or 'Store': ").capitalize()
+ 
     while inv_open is True:       
         if player_choice == "Take":
             try: 
                 item_name = input("What item do you want to move?: ").capitalize()
                 num_item = int(input("How many?: "))
                 transfer_items(Chest, Inventory, item_name, num_item)
-                container_overview(Inventory)
-                container_overview(Chest)
             except ValueError:
                 print ("Please, use only numbers for the quantity of items.")
 
@@ -70,8 +73,6 @@ def container_interaction(Inventory):
                 item_name = input("What item do you want to move?: ").capitalize()
                 num_item = int(input("How many?: "))
                 transfer_items(Inventory, Chest, item_name, num_item)
-                container_overview(Inventory)
-                container_overview(Chest)
             except ValueError:
                 print ("Please, use only numbers for the quantity of items.")
 
@@ -79,4 +80,4 @@ def container_interaction(Inventory):
             inv_open = False
         
         else:
-            player_choice = input("Please, choose one of them: 'Take' | Store | Exit : ").capitalize()
+            player_choice = input("Choose one of them: 'Take' | Store | Exit : ").capitalize()
