@@ -6,7 +6,7 @@ Inventory = starting_player_items
 
 Chest = {}
 
-trader_inventory = {}
+tavern_trader = trader_inventory
 
 def transfer_items(source, destination, item_name, num_item):
     try:
@@ -21,7 +21,7 @@ def transfer_items(source, destination, item_name, num_item):
     if source[item_name].quantity < num_item:
         print (f"You only have {item.quantity} of those.")
         return
-
+  
     if name not in destination:
         destination[item_name] = item.copy(0)
 
@@ -31,33 +31,24 @@ def transfer_items(source, destination, item_name, num_item):
     if source[item.name].quantity <=0:
         del source[item]
 
-    container_overview(Inventory)        
-    container_overview(Chest)
-
 def container_overview(source):
 
-    if source == Inventory:
-        print ("\n----Inventory----\n")
-
-    elif source == Chest:
-        print ("\n------Chest------\n")
-    
     total_weight = 0 
     for x in source:
         item_obj = source[x]
-        
         name = item_obj.name
         weight = item_obj.weight * item_obj.quantity
-        value = item_obj.value * item_obj.quantity
+        value = item_obj.value
         quantity = item_obj.quantity
         total_weight += weight
 
         overview = f"{name}: {value}g | {weight} kg | {quantity} copy's."
-        print (overview)
+        print (f"{overview}")
+        
 
-    print (f"You are carrying {total_weight}kg's")
+    print (f"\nTotal {total_weight}kg's\n")
 
-def container_interaction(Inventory):
+def container_interaction():
             
     inv_open = True
 
@@ -86,5 +77,29 @@ def container_interaction(Inventory):
         else:
             player_choice = input("Choose one of them: 'Take' | Store | Exit : ").capitalize()
 
-def trade(inventory, trader_inventory):
-    pass
+def trade(Inventory, trader_inventory):
+
+    print("Trader: Welcome mate, what are you buying?\n\n-- Trader Inventory --")
+    container_overview(trader_inventory)
+    item_name = input("Type item name to trade for it: ").capitalize()
+    num_item = int(input("How many?: "))
+
+    if item_name in trader_inventory:
+        choice_to_buy = input (f"That item costs {trader_inventory[item_name].value} each, you will procceed?: Y or N\n").capitalize()
+
+        if choice_to_buy == "Y":
+           if Inventory["Gold"].quantity < trader_inventory[item_name].value * num_item:
+               print (f"Trader: Sorry mate, you only have {Inventory["Gold"].quantity} gold, that won't do.")
+
+           if Inventory["Gold"].quantity >= trader_inventory[item_name].value * num_item:
+               transfer_items(trader_inventory, Inventory, item_name, num_item)
+               Inventory["Gold"].quantity -= trader_inventory[item_name].value * num_item
+               print ("Pleasure doing business")
+               
+               
+               
+
+    else:
+        print (f"Trader: Sorry Stranger, i have no {item_name} with me")
+    
+    
