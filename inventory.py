@@ -1,6 +1,6 @@
 from mechanics.maps.all_maps import *
 from mechanics.maps.all_items import *
-from mechanics.maps.data import *
+from engine import *
 
 Inventory = starting_player_items
 
@@ -23,15 +23,17 @@ def transfer_items(source, destination, item_name, num_item):
         return
   
     if name not in destination:
-        destination[item_name] = item.copy(0)
+        destination[name] = item.copy(0)
 
     destination[item_name].quantity += num_item
     source[item_name].quantity -= num_item
 
-    if source[item.name].quantity <=0:
-        del source[item]
+    if source[item_name].quantity <=0:
+        del source[name]
 
-def container_overview(source):
+def container_overview(source, name):
+
+    print (f"-- {name} --")
 
     total_weight = 0 
     for x in source:
@@ -52,7 +54,7 @@ def container_interaction():
             
     inv_open = True
 
-    player_choice = input("\n----To exit inventory, type 'Exit'----\nYou want to store or take items?\n 'Take' or 'Store': ").capitalize()
+    player_choice = input("\n----To leave the interaction, type 'Exit'----\nYou want to store or take items?\n 'Take' or 'Store': ").capitalize()
  
     while inv_open is True:       
         if player_choice == "Take":
@@ -79,10 +81,11 @@ def container_interaction():
 
 def trade(Inventory, trader_inventory):
 
-    print("Trader: Welcome mate, what are you buying?\n\n-- Trader Inventory --")
-    container_overview(trader_inventory)
+    print("Trader: Welcome mate, what are you buying?\n")
+    container_overview(trader_inventory, "Trader")
     item_name = input("Type item name to trade for it: ").capitalize()
     num_item = int(input("How many?: "))
+
 
     if item_name in trader_inventory:
         choice_to_buy = input (f"That item costs {trader_inventory[item_name].value} each, you will procceed?: Y or N\n").capitalize()
